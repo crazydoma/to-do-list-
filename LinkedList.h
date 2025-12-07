@@ -80,6 +80,34 @@ public:
         cout << "\n-----------------------------------------------\n"
              << endl;
     }
-};
 
+    // Masry
+    void searchTaskID(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "\n The List is Empty, Nothing to Search for!" << endl;
+            return;
+        }
+        Node *temp = head;
+        bool found = false;
+
+        while (temp != NULL)
+        {
+            if (temp->id == id)
+            {
+                cout << "ID: " << temp->id << " | Title: " << temp->title
+                     << " | Status: " << temp->status << endl;
+                found = true;
+                break;
+            }
+            temp = temp->next;
+        }
+
+        if (!found)
+        {
+            cout << "Task with ID " << id << " not found." << endl;
+        }
+    }
+};
 #endif
