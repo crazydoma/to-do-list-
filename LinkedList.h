@@ -142,5 +142,35 @@ public:
         head = NULL;
         cout << "All tasks have been deleted." << endl;
     }
+
+    // 7
+    void markAsDone(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "List is empty, nothing to mark as done." << endl;
+            return;
+        }
+
+        Node *temp = head;
+        bool found = false;
+
+        while (temp != NULL)
+        {
+            if (temp->id == id)
+            {
+                temp->status = "done";
+                found = true;
+                cout << "Task  ID " << id << " has been marked as done." << endl;
+                return;
+            }
+            temp = temp->next;
+        }
+
+        if (!found)
+        {
+            cout << "Task  ID " << id << " not found." << endl;
+        }
+    }
 };
 #endif
