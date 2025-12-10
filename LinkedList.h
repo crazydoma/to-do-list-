@@ -87,34 +87,6 @@ public:
              << endl;
     }
 
-    // 8
-    void searchTaskID(int id)
-    {
-        if (head == NULL)
-        {
-            cout << "\n The List is Empty, Nothing to Search for!" << endl;
-            return;
-        }
-        Node *temp = head;
-        bool found = false;
-
-        while (temp != NULL)
-        {
-            if (temp->id == id)
-            {
-                cout << "ID: " << temp->id << " | Title: " << temp->title
-                     << " | Status: " << temp->status << endl;
-                found = true;
-                break;
-            }
-            temp = temp->next;
-        }
-
-        if (!found)
-        {
-            cout << "Task with ID " << id << " not found." << endl;
-        }
-    }
 
     // 4
     int countTasks()
@@ -129,6 +101,42 @@ public:
         return count;
     }
 
+    //5
+
+    bool deletetask(int id)
+    {
+       if ( head == NULL) return false;
+
+       Node * temp = head ;
+       if ( head->id == id)
+       {
+            head = head->next ;
+            delete temp;
+            return true;
+       }
+       else 
+       {
+        while (temp != NULL)
+        {
+            if(temp->next->id == id)
+            {
+                Node * deletedtemp; 
+                deletedtemp = temp->next->next;
+                delete temp->next;
+                temp->next = deletedtemp;
+                return true;
+            }
+            temp = temp->next;
+        }
+       }
+
+      return false;
+        
+    }
+
+
+
+
     // 6
     void deleteAllTasks()
     {
@@ -142,6 +150,10 @@ public:
         head = NULL;
         cout << "All tasks have been deleted." << endl;
     }
+
+
+
+
 
     // 7
     void markAsDone(int id)
@@ -172,5 +184,44 @@ public:
             cout << "Task  ID " << id << " not found." << endl;
         }
     }
+
+
+
+
+
+
+
+    // 8
+    void searchTaskID(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "\n The List is Empty, Nothing to Search for!" << endl;
+            return;
+        }
+        Node *temp = head;
+        bool found = false;
+
+        while (temp != NULL)
+        {
+            if (temp->id == id)
+            {
+                cout << "ID: " << temp->id << " | Title: " << temp->title
+                     << " | Status: " << temp->status << endl;
+                found = true;
+                break;
+            }
+            temp = temp->next;
+        }
+
+        if (!found)
+        {
+            cout << "Task with ID " << id << " not found." << endl;
+        }
+    }
+
+    
+
+    
 };
 #endif
