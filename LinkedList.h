@@ -104,32 +104,6 @@ public:
         cout << "\n-----------------------------------------------\n" << endl;
     }
 
-    // 9
-    void searchTaskID(int id)
-    {
-        if (head == NULL)
-        {
-            cout << "\nThe list is empty, nothing to search for!" << endl;
-            return;
-        }
-        Node *temp = head;
-
-        while (temp != NULL)
-        {
-            if (temp->id == id)
-            {
-                cout << "\n--- Task Found ---" << endl;
-                cout << "ID: " << temp->id << " | Title: " << temp->title
-                     << " | Description: " << temp->description
-                     << " | Status: " << temp->status << endl;
-                cout << "-----------------------------------------------\n" << endl;
-                return;
-            }
-            temp = temp->next;
-        }
-
-        cout << "Task with ID " << id << " not found." << endl;
-    }
 
     // 4
     int countTasks()
@@ -144,18 +118,41 @@ public:
         return count;
     }
 
-    // 5
-    void renumberTasks()
+    //5
+
+    bool deletetask(int id)
     {
-        int counter = 1;
-        Node *temp = head;
+       if ( head == NULL) return false;
+
+       Node * temp = head ;
+       if ( head->id == id)
+       {
+            head = head->next ;
+            delete temp;
+            return true;
+       }
+       else 
+       {
         while (temp != NULL)
         {
-            temp->id = counter;
-            counter++;
+            if(temp->next->id == id)
+            {
+                Node * deletedtemp; 
+                deletedtemp = temp->next->next;
+                delete temp->next;
+                temp->next = deletedtemp;
+                return true;
+            }
             temp = temp->next;
         }
+       }
+
+      return false;
+        
     }
+
+
+
 
     // 6
     void deleteTask(int id)
@@ -217,7 +214,11 @@ public:
         cout << "All tasks have been deleted." << endl;
     }
 
-    // 8
+
+
+
+
+    // 7
     void markAsDone(int id)
     {
         if (head == NULL)
@@ -246,5 +247,44 @@ public:
             cout << "Task with ID " << id << " not found." << endl;
         }
     }
-};    
+
+
+
+
+
+
+
+    // 8
+    void searchTaskID(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "\n The List is Empty, Nothing to Search for!" << endl;
+            return;
+        }
+        Node *temp = head;
+        bool found = false;
+
+        while (temp != NULL)
+        {
+            if (temp->id == id)
+            {
+                cout << "ID: " << temp->id << " | Title: " << temp->title
+                     << " | Status: " << temp->status << endl;
+                found = true;
+                break;
+            }
+            temp = temp->next;
+        }
+
+        if (!found)
+        {
+            cout << "Task with ID " << id << " not found." << endl;
+        }
+    }
+
+    
+
+    
+};
 #endif
