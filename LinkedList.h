@@ -118,6 +118,19 @@ public:
         return count;
     }
 
+    // 5
+    void renumberTasks()
+    {
+        int counter = 1;
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            temp->id = counter;
+            counter++;
+            temp = temp->next;
+        }
+    }
+
     // 6
     void deleteTask(int id)
     {
