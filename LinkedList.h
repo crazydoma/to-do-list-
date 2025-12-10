@@ -233,7 +233,7 @@ public:
         {
             if (temp->id == id)
             {
-                temp->status = "done";
+                temp->status = "Done";
                 found = true;
                 cout << "Task with ID " << id << " has been marked as done." << endl;
                 return;
