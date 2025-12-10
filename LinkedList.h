@@ -16,11 +16,25 @@ public:
         head = NULL;
     }
 
+    // Destructor to prevent memory leaks
+    ~LinkedList()
+    {
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            Node *nextNode = temp->next;
+            delete temp;
+            temp = nextNode;
+        }
+        head = NULL;
+    }
+
     // 1
 
-    void addTask(int id, string title, string description, string status)
+    void addTask(string title, string description, string status)
     {
-        Node *newNode = new Node(id, title, description, status);
+        int newId = countTasks() + 1;
+        Node *newNode = new Node(newId, title, description, status);
 
         if (head == NULL)
         {
@@ -35,7 +49,7 @@ public:
             }
             temp->next = newNode;
         }
-        cout << "Task added successfully: " << title << endl;
+        cout << "Task added successfully: " << title << " (ID: " << newId << ")" << endl;
     }
 
     // 2
@@ -49,7 +63,6 @@ public:
         }
 
         Node *temp = head;
-        bool found = false;
 
         while (temp != NULL)
         {
@@ -58,62 +71,64 @@ public:
                 temp->title = newTitle;
                 temp->description = newDescription;
                 temp->status = newStatus;
-                found = true;
                 cout << "Task with ID " << id << " has been updated." << endl;
                 return;
             }
             temp = temp->next;
         }
 
-        if (!found)
-        {
-            cout << "Task with ID " << id << " not found." << endl;
-        }
+        cout << "Task with ID " << id << " not found." << endl;
     }
 
     // 3
 
     void displayAllTasks()
     {
+        if (head == NULL)
+        {
+            cout << "\n--- To-Do List ---" << endl;
+            cout << "No tasks found. The list is empty." << endl;
+            cout << "\n-----------------------------------------------\n" << endl;
+            return;
+        }
+
         Node *temp = head;
         cout << "\n--- To-Do List ---" << endl;
         while (temp != NULL)
         {
             cout << "ID: " << temp->id << " | Title: " << temp->title
+                 << " | Description: " << temp->description
                  << " | Status: " << temp->status << endl;
             temp = temp->next;
         }
-        cout << "\n-----------------------------------------------\n"
-             << endl;
+        cout << "\n-----------------------------------------------\n" << endl;
     }
 
-    // 8
+    // 9
     void searchTaskID(int id)
     {
         if (head == NULL)
         {
-            cout << "\n The List is Empty, Nothing to Search for!" << endl;
+            cout << "\nThe list is empty, nothing to search for!" << endl;
             return;
         }
         Node *temp = head;
-        bool found = false;
 
         while (temp != NULL)
         {
             if (temp->id == id)
             {
+                cout << "\n--- Task Found ---" << endl;
                 cout << "ID: " << temp->id << " | Title: " << temp->title
+                     << " | Description: " << temp->description
                      << " | Status: " << temp->status << endl;
-                found = true;
-                break;
+                cout << "-----------------------------------------------\n" << endl;
+                return;
             }
             temp = temp->next;
         }
 
-        if (!found)
-        {
-            cout << "Task with ID " << id << " not found." << endl;
-        }
+        cout << "Task with ID " << id << " not found." << endl;
     }
 
     // 4
@@ -129,7 +144,66 @@ public:
         return count;
     }
 
+    // 5
+    void renumberTasks()
+    {
+        int counter = 1;
+        Node *temp = head;
+        while (temp != NULL)
+        {
+            temp->id = counter;
+            counter++;
+            temp = temp->next;
+        }
+    }
+
     // 6
+    void deleteTask(int id)
+    {
+        if (head == NULL)
+        {
+            cout << "List is empty, nothing to delete." << endl;
+            return;
+        }
+
+        // If deleting the head node
+        if (head->id == id)
+        {
+            Node *nodeToDelete = head;
+            head = head->next;
+            delete nodeToDelete;
+            renumberTasks();
+            cout << "Task with ID " << id << " has been deleted." << endl;
+            return;
+        }
+
+        // Traverse to find the node to delete
+        Node *prev = head;
+        Node *current = head->next;
+        bool found = false;
+
+        while (current != NULL)
+        {
+            if (current->id == id)
+            {
+                prev->next = current->next;
+                delete current;
+                found = true;
+                renumberTasks();
+                cout << "Task with ID " << id << " has been deleted." << endl;
+                return;
+            }
+            prev = current;
+            current = current->next;
+        }
+
+        if (!found)
+        {
+            cout << "Task with ID " << id << " not found." << endl;
+        }
+    }
+
+    // 7
     void deleteAllTasks()
     {
         Node *temp = head;
@@ -143,7 +217,7 @@ public:
         cout << "All tasks have been deleted." << endl;
     }
 
-    // 7
+    // 8
     void markAsDone(int id)
     {
         if (head == NULL)
@@ -161,7 +235,7 @@ public:
             {
                 temp->status = "done";
                 found = true;
-                cout << "Task  ID " << id << " has been marked as done." << endl;
+                cout << "Task with ID " << id << " has been marked as done." << endl;
                 return;
             }
             temp = temp->next;
@@ -169,8 +243,8 @@ public:
 
         if (!found)
         {
-            cout << "Task  ID " << id << " not found." << endl;
+            cout << "Task with ID " << id << " not found." << endl;
         }
     }
-};
+};    
 #endif
