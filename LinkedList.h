@@ -118,42 +118,6 @@ public:
         return count;
     }
 
-    //5
-
-    bool deletetask(int id)
-    {
-       if ( head == NULL) return false;
-
-       Node * temp = head ;
-       if ( head->id == id)
-       {
-            head = head->next ;
-            delete temp;
-            return true;
-       }
-       else 
-       {
-        while (temp != NULL)
-        {
-            if(temp->next->id == id)
-            {
-                Node * deletedtemp; 
-                deletedtemp = temp->next->next;
-                delete temp->next;
-                temp->next = deletedtemp;
-                return true;
-            }
-            temp = temp->next;
-        }
-       }
-
-      return false;
-        
-    }
-
-
-
-
     // 6
     void deleteTask(int id)
     {
