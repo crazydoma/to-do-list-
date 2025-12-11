@@ -145,7 +145,9 @@ public:
     }
 
     // 5
-    void renumberTasks()
+
+
+     void renumberTasks()
     {
         int counter = 1;
         Node *temp = head;
@@ -157,50 +159,37 @@ public:
         }
     }
 
-    // 6
-    void deleteTask(int id)
+      bool deletetask(int id)
     {
-        if (head == NULL)
-        {
-            cout << "List is empty, nothing to delete." << endl;
-            return;
-        }
+       if ( head == NULL) return false;
 
-        // If deleting the head node
-        if (head->id == id)
-        {
-            Node *nodeToDelete = head;
-            head = head->next;
-            delete nodeToDelete;
+       Node * temp = head ;
+       if ( head->id == id)
+       {
+            head = head->next ;
+            delete temp;
             renumberTasks();
-            cout << "Task with ID " << id << " has been deleted." << endl;
-            return;
-        }
-
-        // Traverse to find the node to delete
-        Node *prev = head;
-        Node *current = head->next;
-        bool found = false;
-
-        while (current != NULL)
+            return true;
+       }
+       else 
+       {
+        while (temp != NULL)
         {
-            if (current->id == id)
+            if(temp->next->id == id)
             {
-                prev->next = current->next;
-                delete current;
-                found = true;
+                Node * deletedtemp; 
+                deletedtemp = temp->next->next;
+                delete temp->next;
+                temp->next = deletedtemp;
                 renumberTasks();
-                cout << "Task with ID " << id << " has been deleted." << endl;
-                return;
+                return true;
             }
-            prev = current;
-            current = current->next;
+            temp = temp->next;
         }
+       }
 
-        if (!found)
-        {
-            cout << "Task with ID " << id << " not found." << endl;
-        }
+      return false;
+        
     }
 
     // 7
