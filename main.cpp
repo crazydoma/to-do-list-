@@ -18,6 +18,13 @@ int main()
     LinkedList todo;
     int choice, id;
     string title, description, status = "In Progress";
+        cout << "\n";
+        cout << "====================================================\n";
+        cout << "       Welcome Dr.Ismail To Our TO-DO LIST APP        \n";
+        cout << "                 Hope You Enjoy It :)                      \n";
+        cout << "====================================================\n";
+        this_thread::sleep_for(chrono::seconds(4));   
+        clearScreen(); 
 
     do
     {
@@ -86,6 +93,10 @@ int main()
             break;
 
         case 5:
+            cout << "===================" << endl;
+            cout << "6) In-ProgressTASKS MENU " << endl;
+            cout << "===================" << endl;
+           todo.showInprogressTasks();
             break;
 
         case 6:
@@ -159,6 +170,7 @@ int main()
             break;
 
         case 0:
+        cout << endl;
             cout << "===============================================" << endl;
             cout << "\tExiting... Goodbye :)\t\n";
             cout << "===============================================" << endl;

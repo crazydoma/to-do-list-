@@ -18,7 +18,6 @@ public:
         head = NULL;
     }
 
-
     ~LinkedList()
     {
         Node *temp = head;
@@ -31,17 +30,12 @@ public:
         head = NULL;
     }
 
-
-
-
     void wait(int n)
     {
         this_thread::sleep_for(chrono::seconds(n));
     }
 
-
     /*----------------- ADD TASK SECTION ------------------*/
-
 
     void addTask(string title, string description, string status)
     {
@@ -62,24 +56,18 @@ public:
             temp->next = newNode;
         }
         cout << "Task added successfully: " << title << " (ID: " << id << ")" << endl;
-        wait(2);
+        wait(1);
     }
-
-
-
-
-
 
     /*----------------- EDIT TASK SECTION ------------------*/
 
-
     void editTask(int id, string newTitle, string newDescription)
     {
-        if (head == NULL)
-        {
-            cout << "List is empty, nothing to edit." << endl;
-            return;
-        }
+        // if (head == NULL)
+        // {
+        //     cout << "List is empty, nothing to edit." << endl;
+        //     return;
+        // }
 
         Node *temp = head;
 
@@ -89,24 +77,19 @@ public:
             {
                 temp->title = newTitle;
                 temp->description = newDescription;
-               // temp->status = newStatus;
+                // temp->status = newStatus;
                 cout << "Task with ID " << id << " has been updated." << endl;
-                wait(2);
+                wait(1);
                 return;
             }
             temp = temp->next;
         }
 
         cout << "Task with ID " << id << " not found." << endl;
-        wait(2);
+        wait(1);
     }
 
-
-
-
-
     /*----------------- DISPLAY TASKS SECTION ------------------*/
-
 
     void displayAllTasks()
     {
@@ -114,13 +97,15 @@ public:
         {
             cout << "\n================================= TASKS =================================" << endl;
             cout << "\nTASK LIST IS EMPTY :( " << endl;
-            cout << "\n=========================================================================\n" << endl;
-            wait(2);
+            cout << "\n=========================================================================\n"
+                 << endl;
+            wait(1);
             return;
         }
 
         Node *temp = head;
-        cout << "\n================================= TASKS =================================\n" << endl;
+        cout << "\n================================= TASKS =================================\n"
+             << endl;
         while (temp != NULL)
         {
             cout << "ID: " << temp->id << " | Title: " << temp->title
@@ -128,23 +113,21 @@ public:
                  << " | Status: " << temp->status << endl;
             temp = temp->next;
         }
-        cout << "\n==========================================================================\n" << endl;
-        wait(4);
+        cout << "\n==========================================================================\n"
+             << endl;
+        string x;     
+        cout << "press any key to get back: " ; cin >> x;
+        return; 
     }
 
-
-
-
-
-
     /*----------------- SEARCH TASK SECTION ------------------*/
-
 
     void searchTaskID(int id)
     {
         if (head == NULL)
         {
             cout << "\nThe list is empty, nothing to search for!" << endl;
+            wait(1);
             return;
         }
         Node *temp = head;
@@ -158,17 +141,16 @@ public:
                      << " | Description: " << temp->description
                      << " | Status: " << temp->status << endl;
                 cout << "==========================================================================" << endl;
-                wait(4);
-                return;
+                string x;     
+                cout << "\n\npress any key to get back: " ; cin >> x;
+                return; 
             }
             temp = temp->next;
         }
 
         cout << "Task with ID " << id << " not found." << endl;
-        wait(2);
+        wait(1);
     }
-
-
 
     /*----------------- COUNT OF TASKS SECTION ------------------*/
 
@@ -184,11 +166,9 @@ public:
         return count;
     }
 
+    /*----------------- DELETE TASK SECTION ------------------*/
 
-
-    /*----------------- DELETE TASK SECTION ------------------*/    
-
-     void renumberTasks()
+    void renumberTasks()
     {
         int counter = 1;
         Node *temp = head;
@@ -200,49 +180,44 @@ public:
         }
     }
 
-      void deletetask(int id)
+    void deletetask(int id)
     {
-    //    if ( head == NULL) 
-    //    {
-    //     cout << "List is Empty .. Nothing To delete  \n"; wait();
-    //      return ;
+        //    if ( head == NULL)
+        //    {
+        //     cout << "List is Empty .. Nothing To delete  \n"; wait();
+        //      return ;
 
-    //    } 
+        //    }
 
-       Node * temp = head ;
-       if ( head->id == id)
-       {
-            head = head->next ;
+        Node *temp = head;
+        if (head->id == id)
+        {
+            head = head->next;
             delete temp;
             renumberTasks();
-            cout << "Task with id " << id << " Deleted Successfully ! \n" ;
-            wait(2);
+            cout << "Task with id " << id << " Deleted Successfully ! \n";
+            wait(1);
             return;
-       }
-       else 
-       {
-        while (temp != NULL)
-        {
-            if(temp->next->id == id)
-            {
-                Node * deletedtemp; 
-                deletedtemp = temp->next->next;
-                delete temp->next;
-                temp->next = deletedtemp;
-                renumberTasks();
-                cout << "Task with id " << id << " Deleted Successfully :) \n" ;
-                wait(2);
-                return;
-            }
-            temp = temp->next;
         }
-       }
-
-       
-        
+        else
+        {
+            while (temp != NULL)
+            {
+                if (temp->next->id == id)
+                {
+                    Node *deletedtemp;
+                    deletedtemp = temp->next->next;
+                    delete temp->next;
+                    temp->next = deletedtemp;
+                    renumberTasks();
+                    cout << "Task with id " << id << " Deleted Successfully :) \n";
+                    wait(1);
+                    return;
+                }
+                temp = temp->next;
+            }
+        }
     }
-
-
 
     /*----------------- DELETE ALL TASKS SECTION ------------------*/
     void deleteAllTasks()
@@ -256,10 +231,8 @@ public:
         }
         head = NULL;
         cout << "All tasks have been deleted." << endl;
-        wait(2);
+        wait(1);
     }
-
-
 
     /*----------------- MARK TASK DONE SECTION ------------------*/
     void markAsDone(int id)
@@ -267,6 +240,7 @@ public:
         if (head == NULL)
         {
             cout << "List is empty, nothing to mark as done." << endl;
+            wait(1);
             return;
         }
 
@@ -280,7 +254,7 @@ public:
                 temp->status = "Done";
                 found = true;
                 cout << "Task with ID " << id << " has been marked as done." << endl;
-                wait(2);
+                wait(1);
                 return;
             }
             temp = temp->next;
@@ -289,19 +263,54 @@ public:
         if (!found)
         {
             cout << "Task with ID " << id << " not found." << endl;
-            wait(2);
+            wait(1);
         }
     }
 
 
 
+     /*-------------------------Inprogress----------------------------*/
+
+     void showInprogressTasks()
+    {
+        if (head == NULL)
+        {
+            cout << "\nThe list is empty, nothing to view!" << endl;
+
+            wait(1);
+            return;
+        }
+
+        Node *temp = head;
+        cout << "\n=== In Progress Tasks ===\n";
+
+        while (temp != NULL)
+        {
+            if (temp->status != "Done")
+            {
+                
+                cout << "ID: " << temp->id << " | Title: " << temp->title
+                     << " | Description: " << temp->description
+                     << " | Status: " << temp->status << endl;
+                cout << "==========================================================================" << endl;
+            }
+            temp = temp->next;
+        }
+        string x;     
+        cout << "\n\npress any key to get back: " ; cin >> x;
+        return; 
+
+        
+    }
+
     /*-------------------------EXTRAS----------------------------*/
     bool isfound(int id)
     {
-        Node * temp = head ;
-        while (temp !=NULL)
+        Node *temp = head;
+        while (temp != NULL)
         {
-            if(temp->id == id) return true;
+            if (temp->id == id)
+                return true;
             temp = temp->next;
         }
         return false;
@@ -309,13 +318,9 @@ public:
 
     bool isempty()
     {
-        return head==NULL;
+        return head == NULL;
     }
 
-
-
-
-
-
-};    
+   
+};
 #endif
