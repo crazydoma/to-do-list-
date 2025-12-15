@@ -116,7 +116,7 @@ public:
         cout << "\n==========================================================================\n"
              << endl;
         string x;     
-        cout << "press any key to get back: " ; cin >> x;
+        cout << "Enter any key to get back to the Main Menu: " ; cin >> x;
         return; 
     }
 
@@ -142,7 +142,7 @@ public:
                      << " | Status: " << temp->status << endl;
                 cout << "==========================================================================" << endl;
                 string x;     
-                cout << "\n\npress any key to get back: " ; cin >> x;
+                cout << "\n\nEnter any key to get back to the Main Menu: " ; cin >> x;
                 return; 
             }
             temp = temp->next;
@@ -297,7 +297,7 @@ public:
             temp = temp->next;
         }
         string x;     
-        cout << "\n\npress any key to get back: " ; cin >> x;
+        cout << "\n\nEnter any key to get back to the Main Menu: " ; cin >> x;
         return; 
 
         
