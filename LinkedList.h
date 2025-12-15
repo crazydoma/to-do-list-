@@ -294,6 +294,9 @@ public:
                      << " | Status: " << temp->status << endl;
                 cout << "==========================================================================" << endl;
             }
+            else {
+                cout << "\n The List Doesn't Contain any In Progress Tasks, You are Free! \n";
+            }
             temp = temp->next;
         }
         string x;     
